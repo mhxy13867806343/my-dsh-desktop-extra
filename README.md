@@ -34,11 +34,15 @@
 2. 搜索 **dsh-desktop-extra**；
 3. 点 **安装**，即可用（下次启动自动加载，常驻）。
 
-### 方式二：命令行安装（需要走 npm 或可解析的包）
+### 方式二：命令行安装（已发布到 npm，推荐）
 ```bash
+# 本地常驻（每次启动自动加载）
 dsh plugin --profile desktop add @mhxy13867806343/dsh-desktop-extra
+
+# 或指定版本
+dsh plugin --profile desktop add @mhxy13867806343/dsh-desktop-extra@1.0.1
 ```
-> 当前包名 scope 为 `@mhxy13867806343`，若你未发布到 npm，可先用方式一，或改为你的可解析 scope。
+> 包已发布到 npm（`@mhxy13867806343/dsh-desktop-extra`），无需手动改 scope。装完重启 DSH Desktop 即常驻。
 
 ### 方式三：手动放进 profile（适合开发者）
 把本包放入 profile 的插件目录/依赖，并在组合里引用：
@@ -57,7 +61,7 @@ dsh plugin --profile desktop add @mhxy13867806343/dsh-desktop-extra
 dsh-desktop-extra/
   package.json         # name/version + exports(. / ./client) + dsh.bundle.patch 标记
   cordis.patch.yml     # dsh 组合 patch：把本插件插入 profile 的层
-  lib/index.js         # 宿主端：desktopUpdate.* / account.* / bg.*
+  lib/index.js         # 宿主端：注册 /dsh-extra/* 的 sameOrign HTTP 路由（update/account/bg）
   lib/client.js        # 客户端：sidebar.footer.action + settings.general.item + 背景弹窗
   LICENSE              # MIT
   README.md
@@ -65,7 +69,7 @@ dsh-desktop-extra/
 
 ## 🔌 依赖的宿主能力
 
-客户端用 `ctx.get('theme' | 'slots' | 'timer')` 与 `harness.handle`；宿主端用 `ctx.get('desktopRuntime' | 'desktopBrowserAccess' | 'webServer' | 'web' | 'shell' | 'credentials')`，这些都在 DSH Desktop 主进程内存在。
+客户端用 `ctx.get('theme' | 'slots' | 'timer')`，并通过 `fetch` 调宿主 `/dsh-extra/*` 路由；宿主端用 `ctx.get('desktopRuntime' | 'desktopBrowserAccess' | 'webServer' | 'web' | 'shell' | 'credentials')` 与 `webServer.register(...)`，这些都在 DSH Desktop 主进程内存在。
 
 ---
 
