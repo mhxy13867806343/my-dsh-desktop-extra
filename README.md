@@ -34,7 +34,7 @@ dsh-desktop-extra/
 
 发布需要你自己的市场账号 + 对应市场的发布工具/API，**本仓库只提供规范的包结构**，具体步骤如下（以你的目标市场为准）：
 
-1. 把 `package.json` 的 `name` 改成你自己的 scope（如 `@你的用户名/dsh-desktop-extra`）
+1. 包名已按你的 scope 设为 `@mhxy13867806343/dsh-desktop-extra`（如要用别的 scope，改 `package.json` 和 `cordis.patch.yml` 的 `name` 即可）
 2. 每个市场有自己的发布流程（有的用 npm registry，有的用自有目录/CLI）。参照你对应市场的插件发布文档，把本包打包上传
 3. 包内 `exports` 需保留 `./client`（客户端）与 `./`|`main`（宿主端），这样 DSH 组合才能按 `name` 引用并加载
 
@@ -42,12 +42,12 @@ dsh-desktop-extra/
 
 若只是想在自己机器上常驻（避免每次重启动态插件丢失），把本包安装进部署并用 cordis 组合引用：
 
-- 宿主端：`dsh plugin --profile <name> add @yourscope/dsh-desktop-extra`（或直接放入 profile 的插件目录）
+- 宿主端：`dsh plugin --profile <name> add @mhxy13867806343/dsh-desktop-extra`（或直接放入 profile 的插件目录）
 - 组合引用：在目标 agent/desktop 组合里加一行，例如
 
 ```yaml
 - id: desktop-extra
-  name: '@yourscope/dsh-desktop-extra'
+  name: '@mhxy13867806343/dsh-desktop-extra'
 ```
 
 > 注：`dsh-plugin-desktop` 同名的桌面壳插件不能重复；本插件的 `desktopUpdate.*` 走桌面自带的更新接口，其余功能独立。
