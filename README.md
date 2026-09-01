@@ -51,3 +51,15 @@ dsh-desktop-extra/
 ```
 
 > 注：`dsh-plugin-desktop` 同名的桌面壳插件不能重复；本插件的 `desktopUpdate.*` 走桌面自带的更新接口，其余功能独立。
+
+## 安全与网络行为（给审核者）
+
+本插件会发起以下网络操作，全部为预期功能，无第三方数据上传：
+
+- **访问本机回环 `http://127.0.0.1:<port>/api/desktop/updates/check`**（仅"检查更新"按钮）
+  —— 这是 DSH Desktop 自带的更新接口，按它的要求 Origin 必须是本机回环地址，请求只发往本机，不对外。
+- **只读 GET 查询官方版本号**（`dshdesktop.cn` / GitHub Releases）
+  —— 用于展示"已是最新 / 有新版本"，无副作用。
+- **从公开图源下载壁纸**（Wallhaven `w.wallhaven.cc` / Safebooru `safebooru.org`）
+  —— 仅当用户点击"设为背景"或"下载到本地"时，把公开的二次元壁纸下载到 `~/Downloads/dsh-bg/`，并转成 data URL 渲染为背景。
+- 不收集、不上传你的任何数据；配置文件（背景选择/历史/分类/已下载标记）仅保存在浏览器 localStorage，API Key 只在"个人信息"里做脱敏展示和 DeepSeek 余额查询（请求发往 `api.deepseek.com`，使用你本机已保存的 key）。
