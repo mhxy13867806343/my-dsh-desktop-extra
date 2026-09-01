@@ -1,0 +1,5 @@
+# dsh bundle patch: inserts this plugin into a profile's layer stack.
+# 发布到市场前，把 name 改成你自己的真实包名（如 @你的用户名/dsh-desktop-extra）。
+- insert:
+    - id: desktop-extra
+      name: '@yourscope/dsh-desktop-extra'
