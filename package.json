@@ -1,6 +1,6 @@
 {
   "name": "@mhxy13867806343/dsh-desktop-extra",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "DSH Desktop 桌面增强插件：检查更新 + 主题切换 + 更多链接 + 个人信息 + 背景壁纸（图库/搜索/本地导入/历史/分页/自定义分类）。",
   "type": "module",
   "main": "./lib/index.js",
